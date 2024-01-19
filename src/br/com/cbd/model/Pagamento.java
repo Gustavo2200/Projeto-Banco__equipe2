@@ -1,3 +1,4 @@
+package br.com.cbd.model;
 
 public class Pagamento {
 

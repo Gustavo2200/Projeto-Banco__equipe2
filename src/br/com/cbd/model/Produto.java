@@ -1,10 +1,13 @@
+package br.com.cbd.model;
 
 public class Produto {
 
 	private String nome;
-	private Integer preco;
+	private double preco;
 	private int codigoBarra;
 	private int quantidadeEstoque;
+	
+	
 	
 	public Produto() {}
 	
@@ -14,11 +17,11 @@ public class Produto {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Integer getPreco() {
+	public double getPreco() {
 		return preco;
 	}
-	public void setPreco(Integer preco) {
-		this.preco = preco;
+	public void setPreco(double precoProduto) {
+		this.preco = precoProduto;
 	}
 	public int getCodigoBarra() {
 		return codigoBarra;
