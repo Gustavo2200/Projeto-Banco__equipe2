@@ -2,17 +2,17 @@ package br.com.cbd.model;
 
 public class Pedido {
 
-	private Integer id;
+	private int id;
 	private Double valorTotal;
-	private Integer quantidade;
+	private int quantidade;
 
 	public Pedido(){}
 
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
