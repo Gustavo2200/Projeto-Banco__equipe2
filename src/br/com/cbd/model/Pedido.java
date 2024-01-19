@@ -3,7 +3,7 @@ package br.com.cbd.model;
 public class Pedido {
 
 	private int id;
-	private Double valorTotal;
+	private double valorTotal;
 	private int quantidade;
 
 	public Pedido(){}
@@ -16,19 +16,19 @@ public class Pedido {
 		this.id = id;
 	}
 
-	public Double getValorTotal() {
+	public double getValorTotal() {
 		return valorTotal;
 	}
 
-	public void setValorTotal(Double valorTotal) {
+	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
 
-	public Integer getQuantidade() {
+	public int getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(Integer quantidade) {
+	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
 }
