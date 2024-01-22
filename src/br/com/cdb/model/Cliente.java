@@ -1,4 +1,4 @@
-package br.com.cbd.model;
+package br.com.cdb.model;
 
 public class Cliente {
 	

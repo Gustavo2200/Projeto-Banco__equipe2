@@ -1,7 +1,7 @@
 package br.com.cdb.dao;
 import java.util.ArrayList;
 
-import br.com.cbd.model.Cliente;
+import br.com.cdb.model.Cliente;
 
 
 public class ClienteDao {

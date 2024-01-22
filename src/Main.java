@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-import br.com.cbd.model.Produto;
+import br.com.cdb.model.Produto;
 
 public class Main {
 
