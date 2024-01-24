@@ -14,9 +14,14 @@ public class ProdutoDao {
 		return true;
 	}
 
-	public boolean retirarProduto(Produto produto) {
-		listaProdutos.remove(0);
-		return true;
+	public boolean retirarProduto(int codigoBarra) {
+		for(Produto produto : listaProdutos) {
+			if(produto.getCodigoBarra() == codigoBarra) {
+				listaProdutos.remove(produto);
+				return true;
+			}
+		}
+		return false;
 	}
 
     public ArrayList<Produto> listaProduto () {

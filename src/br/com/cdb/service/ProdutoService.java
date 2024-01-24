@@ -38,14 +38,16 @@ public class ProdutoService {
 		produto1.setPreco(produto.getPreco());
 		produto1.setQuantidadeEstoque(produto.getQuantidadeEstoque());
 		
+		produtoDao.adicionarProduto(produto1);
+		
 		if (verificarTamanhoCodigo(produto1.getCodigoBarra())) {
 			return true;
 		}
 		return false;
 	}
 	
-	public boolean retirarProduto(Produto produto) {	
-		return produtoDao.retirarProduto(produto);
+	public boolean retirarProduto(int codigoBarra) {	
+		return produtoDao.retirarProduto(codigoBarra);
 	}
 	
 	public ArrayList<Produto> listaProduto (){
