@@ -58,6 +58,12 @@ public class Cliente {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+
+	public double depositar(double valor) {
+		saldo += valor;
+		return saldo;
+		
+	}
 }
 	
 	

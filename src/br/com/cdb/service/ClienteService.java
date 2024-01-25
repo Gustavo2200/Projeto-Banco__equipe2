@@ -57,7 +57,6 @@ public class ClienteService {
 		return clienteDao.ListaCliente();
 		
 	}
-	
 
 
 }

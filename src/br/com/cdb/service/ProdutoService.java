@@ -58,4 +58,7 @@ public class ProdutoService {
 		 return produtoDao.buscarProduto(codigoBarra);
 	 }
 
+	 public void  removeProdutoEstoque(int codigoBarra, int quantidade) {
+		 produtoDao.removeProdutoEstoque(codigoBarra, quantidade);
+	 }
 }

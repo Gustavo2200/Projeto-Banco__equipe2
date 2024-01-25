@@ -15,14 +15,14 @@ public class Main {
 	PagamentoDao pagamentoDao = new PagamentoDao();
 	static ProdutoService produtoService = new ProdutoService();
 	static ClienteService clienteService = new ClienteService();
-
+    static PedidoDao pedidoDao = new PedidoDao(); //CLASSE NOME new METODO CONSTRUTOR
 	public static void main(String[] args) {
 
 		boolean repete = true;
 		while (repete) {
 			System.out.println("Bem-vindo a loja!");
-			System.out.println("(1) Vendedor ");
-			System.out.println("(2) Checkout");
+			System.out.println("(1) Checkout Vendedor ");
+			System.out.println("(2) Checkout Cliente");
 			System.out.println("(3) Sair ");
 			System.out.println("Digite o número da opção desejada: ");
 			int tipoUsuario = input.nextInt();
@@ -50,6 +50,7 @@ public class Main {
 	public static void login() {
 		input = new Scanner(System.in);
 		boolean repete = true;
+		Cliente cliente1 = null;
 		while (repete) {
 			System.out.println("(1) Criar cadastro");
 			System.out.println("(2) Fazer Login");
@@ -72,7 +73,8 @@ public class Main {
 
 				for (Cliente cliente : clienteService.ListaCliente()) {
 					if (cliente.getEmail().equals(email) && cliente.getSenha().equals(senha)) {
-						menuPedido();
+						cliente1 = cliente;
+						menuPedido(cliente);
 					} else {
 						System.out.println("Informação incorreta, digite novamente!");
 					}
@@ -184,8 +186,9 @@ public class Main {
 				System.out.println("Digite o código do produto que você quer buscar:\n");
 				int codigoBuscar = input.nextInt();
 				Produto produto2 = produtoService.buscarProduto(codigoBuscar);
-				System.out.println( "Nome : " + produto2.getNome() + "\n" + "R$: " + produto2.getPreco() + "\n" + "Código de barras: " + produto2.getCodigoBarra()
-						+ "\n" + "Quantidade de Estoque: " + produto2.getQuantidadeEstoque() + "\n" + ";");
+				System.out.println("Nome : " + produto2.getNome() + "\n" + "R$: " + produto2.getPreco() + "\n"
+						+ "Código de barras: " + produto2.getCodigoBarra() + "\n" + "Quantidade de Estoque: "
+						+ produto2.getQuantidadeEstoque() + "\n" + ";");
 
 				break;
 
@@ -202,18 +205,17 @@ public class Main {
 		}
 	}
 
-	public static void menuPedido() {
-		PedidoDao pedidoDao = new PedidoDao();
-
+	public static void menuPedido(Cliente cliente) {
 		int escolha1 = 0;
 
 		boolean menu = true;
 
 		while (menu) {
 
-			System.out.println("Olá! Digite o que voce quer fazer:\n" + "1- Adicionar produto no carrinho \n"
-					+ "2- Remover produto do carrinho\n" + "3- Exibir valor total do pedido\n" + "4- Exibir carrinho \n"
-					+ "5- Voltar \n");
+			System.out.println("\nOlá! " + cliente.getNome() + " digite o que voce quer fazer:\n"
+					+ "1- Adicionar produto no carrinho \n" + "2- Remover produto do carrinho\n"
+					+ "3- Exibir valor total do pedido\n" + "4- Exibir carrinho \n" + "5- Ver saldo\n"
+					+ "6- Depositar \n" + "7- Finalizar compra\n" + "8- Voltar \n");
 
 			escolha1 = input.nextInt();
 			switch (escolha1) {
@@ -224,9 +226,9 @@ public class Main {
 
 				System.out.println("Digite o nome do produto desejado:\n");
 				String nomeProdutoAdicionar = input.nextLine();
-				
+
 				input.nextLine();
-				
+
 				System.out.println("Qual a quantidade?:\n");
 				int quantidade = input.nextInt();
 
@@ -244,7 +246,8 @@ public class Main {
 				int codigoProdutoRemover = 0;
 				for (Produto produto1 : pedidoDao.ListaProduto()) {
 					System.out.println("Nome: " + produto1.getNome() + "\n" + "R$ :" + produto1.getPreco() + "\n"
-							+"Código de barra do produto : " + produto1.getCodigoBarra() + "\n" + "Quantidade: " + produto1.getQuantidadeComprada() + "\n");
+							+ "Código de barra do produto : " + produto1.getCodigoBarra() + "\n" + "Quantidade: "
+							+ produto1.getQuantidadeComprada() + "\n");
 
 					System.out.println("Digite o código de barra do produto que voce quer remover:\n");
 					codigoProdutoRemover = input.nextInt();
@@ -272,11 +275,33 @@ public class Main {
 
 				for (Produto produto1 : pedidoDao.ListaProduto()) {
 					System.out.println("Nome: " + produto1.getNome() + "\n" + "R$ :" + produto1.getPreco() + "\n"
-							+"Código de barra do produto : " + produto1.getCodigoBarra() + "\n" + "Quantidade: " + produto1.getQuantidadeComprada() + "\n");
+							+ "Código de barra do produto : " + produto1.getCodigoBarra() + "\n" + "Quantidade: "
+							+ produto1.getQuantidadeComprada() + "\n");
 				}
 				break;
 
 			case (5):
+
+				System.out.println("Saldo: " + cliente.getSaldo() + "\n\n");
+				break;
+
+			case (6):
+
+				System.out.println("Quanto você quer depositar?");
+				double valor = input.nextDouble();
+				cliente.depositar(valor);
+				System.out.println("Seu saldo agora, é igual a : " + cliente.getSaldo());
+				break;
+
+			case (7):
+
+				System.out.println("Obrigado pela compra!?");
+				double valor1 = input.nextDouble();
+				cliente.depositar(valor1);
+				System.out.println("Seu saldo agora, é igual a : " + cliente.getSaldo());
+				break;
+
+			case (8):
 
 				System.out.println("Voltando para o menu anterior.");
 				menu = false;
@@ -292,11 +317,16 @@ public class Main {
 	public static void listarProdutos() {
 
 		for (int i = 0; i < produtoService.listaProduto().size(); i++) {
-			System.out.println("Nome: " + produtoService.listaProduto().get(i).getNome() + "\n"
-					+ "Código de barras: " + produtoService.listaProduto().get(i).getCodigoBarra() + "\n"
-					+ "R$: " + produtoService.listaProduto().get(i).getPreco() + "\n"
-					+ "Quantidade de estoque: " +produtoService.listaProduto().get(i).getQuantidadeEstoque() + "\n");
-
+			System.out.println("Nome: " + produtoService.listaProduto().get(i).getNome() + "\n" + "Código de barras: "
+					+ produtoService.listaProduto().get(i).getCodigoBarra() + "\n" + "R$: "
+					+ produtoService.listaProduto().get(i).getPreco() + "\n" + "Quantidade de estoque: "
+					+ produtoService.listaProduto().get(i).getQuantidadeEstoque() + "\n");			
 		}
+		
 	}
-}
+	public static void compraEstoque() {
+		for (Produto produto : pedidoDao.ListaProduto()){ //CLASSE MAE objeto : ONDE VAI BUSCAR
+      produtoService.removeProdutoEstoque(produto.getCodigoBarra(), produto.getQuantidadeEstoque());
+	  }
+	}
+} 

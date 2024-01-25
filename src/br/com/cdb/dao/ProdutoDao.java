@@ -14,29 +14,47 @@ public class ProdutoDao {
 		return true;
 	}
 
-	public boolean retirarProduto(int codigoBarra) {
-		for(Produto produto : listaProdutos) {
-			if(produto.getCodigoBarra() == codigoBarra) {
-				listaProdutos.remove(produto);
-				return true;
-			}
+	public void removeProdutoEstoque(int codigoBarra, int quantidade) {
+for (Produto produto : listaProdutos) {
+	if (produto.getCodigoBarra() == codigoBarra && produto.getQuantidadeEstoque()>=quantidade) {
+		int quantidadeRemover = produto.getQuantidadeComprada();
+		produto.setQuantidadeEstoque(produto.getQuantidadeEstoque()-quantidade);
+		
+		if (produto.getQuantidadeEstoque()  < 1) {
+			retirarProduto(codigoBarra);
 		}
-		return false;
+	
+	
+	}
+}
 	}
 
-    public ArrayList<Produto> listaProduto () {
-	return listaProdutos;
-  }
-    
-    public Produto buscarProduto(int codigoBarra) {
-    	for( Produto produto : listaProdutos ) {
-    		{
-    			if( produto.getCodigoBarra() == codigoBarra) 
-    			return produto;
-    		}
-    		
-    	}
+	public boolean retirarProduto(int codigoBarra) {
+		Produto produto2 = null; //MEXER NO PRODUTO
+		for (Produto produto : listaProdutos) {
+			produto2 = produto;
+			if (produto.getCodigoBarra() != codigoBarra) {
+				
+				return false;
+			}
+		}
+		listaProdutos.remove(produto2);
+		return true;
+	}
+
+	public ArrayList<Produto> listaProduto() {
+		return listaProdutos;
+	}
+
+	public Produto buscarProduto(int codigoBarra) {
+		for (Produto produto : listaProdutos) {
+			{
+				if (produto.getCodigoBarra() == codigoBarra)
+					return produto;
+			}
+
+		}
 		return null;
-    }
+	}
 
 }
