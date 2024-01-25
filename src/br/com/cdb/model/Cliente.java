@@ -3,7 +3,7 @@ package br.com.cdb.model;
 public class Cliente {
 	
 	String nome;
-	int saldo;
+	double saldo;
 	String email;
 	String cpf;
 	String dataDeNascimento;
@@ -19,11 +19,11 @@ public class Cliente {
 		this.nome = nome;
 	}
 
-	public int getSaldo() {
+	public double getSaldo() {
 		return saldo;
 	}
 
-	public void setSaldo(int saldo) {
+	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
 

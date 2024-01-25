@@ -6,9 +6,18 @@ public class Produto {
 	private double preco;
 	private int codigoBarra;
 	private int quantidadeEstoque;
+	private int quantidadeComprada;
 	
 	
 	
+	public int getQuantidadeComprada() {
+		return quantidadeComprada;
+	}
+
+	public void setQuantidadeComprada(int quantidadeComprada) {
+		this.quantidadeComprada = quantidadeComprada;
+	}
+
 	public Produto() {}
 	
 	public String getNome() {

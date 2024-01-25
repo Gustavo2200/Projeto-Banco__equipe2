@@ -21,7 +21,7 @@ public class ClienteService {
 	
 	public boolean verificarClienteNome(String nome) {
 		for(int i = 0; i < nome.length(); i++) {
-			if(nome.substring(i).matches("[a-z]*")== false){
+			if(nome.substring(i).matches("[a-zA-Z]*")== false){
 				return false;
 				
 			}

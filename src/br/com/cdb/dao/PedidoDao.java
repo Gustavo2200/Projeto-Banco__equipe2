@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import br.com.cdb.model.Produto;
  
+
+ 
 public class PedidoDao {
 	private ArrayList<Produto> listaPedido = new ArrayList<Produto>();
  
@@ -14,12 +16,14 @@ public class PedidoDao {
 	}
  
 	public void removerProduto(int codigoBarra) {
+		Produto produto1 = new Produto();
 		for (Produto produto : listaPedido) {
 			{
 				if (produto.getCodigoBarra() == codigoBarra)
-					listaPedido.remove(produto);
+					produto1 = produto;
 			}
 		}
+		listaPedido.remove(produto1);
 	}
  
 	public ArrayList<Produto> ListaProduto() {
@@ -29,7 +33,7 @@ public class PedidoDao {
 	public double calcularTotal() {
 		double total = 0.0;
 		for (Produto produto : listaPedido) {
-			total += produto.getPreco();
+			total += produto.getPreco() * produto.getQuantidadeComprada();
 		}
 		return total;
 	}
