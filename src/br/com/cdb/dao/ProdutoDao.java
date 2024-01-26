@@ -32,14 +32,16 @@ for (Produto produto : listaProdutos) {
 	public boolean retirarProduto(int codigoBarra) {
 		Produto produto2 = null; //MEXER NO PRODUTO
 		for (Produto produto : listaProdutos) {
-			produto2 = produto;
-			if (produto.getCodigoBarra() != codigoBarra) {
-				
-				return false;
+			
+			if (produto.getCodigoBarra() == codigoBarra) {
+				produto2 = produto;
 			}
 		}
+		if(produto2 != null) {
 		listaProdutos.remove(produto2);
 		return true;
+		}
+		return false;
 	}
 
 	public ArrayList<Produto> listaProduto() {

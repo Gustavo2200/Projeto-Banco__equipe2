@@ -29,8 +29,18 @@ public class ClienteService {
 		return true;
 		
 	}
+	public boolean verificarClienteSenha(String senha) {
+		if(senha.length() < 4 || senha.length() > 10) {
+			return false;
+		}
+		
+		return true;
+	}
 	
 	public boolean verificarClienteCpf(String cpf) {
+		if(cpf.length() != 11) {
+			return false;
+		}
 		for(int i = 0;i <cpf.length();i++) {
 			if(cpf.substring(i).matches("[0-9]*")== false) {
 				return false;

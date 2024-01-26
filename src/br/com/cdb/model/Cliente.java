@@ -10,6 +10,17 @@ public class Cliente {
 	String senha;
 	
 	public Cliente() {}
+	
+	public Cliente( String nome, double saldo, String email, String cpf, String dataDeNascimento,
+			String senha) {
+		this.nome = nome;
+		this.saldo = saldo;
+		this.email = email;
+		this.cpf = cpf;
+		this.dataDeNascimento = dataDeNascimento;
+		this.senha = senha;
+		
+	}
 
 	public String getNome() {
 		return nome;

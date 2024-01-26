@@ -20,6 +20,14 @@ public class Produto {
 
 	public Produto() {}
 	
+	public Produto(String nome, double preco, int codigoBarra, int quantidadeEstoque) {
+		this.nome = nome;
+		this.preco = preco;
+		this.codigoBarra = codigoBarra;
+		this.quantidadeEstoque = quantidadeEstoque;
+		
+	}
+	
 	public String getNome() {
 		return nome;
 	}
