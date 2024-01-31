@@ -13,7 +13,7 @@ public class Main {
 	PagamentoDao pagamentoDao = new PagamentoDao();
 	static ProdutoService produtoService = new ProdutoService();
 	static ClienteService clienteService = new ClienteService();
-	static PedidoDao pedidoDao = new PedidoDao(); // CLASSE NOME new METODO CONSTRUTOR
+	static PedidoDao pedidoDao;// CLASSE NOME new METODO CONSTRUTOR
 
 	public static void main(String[] args) {
 
@@ -282,6 +282,9 @@ public class Main {
 	}
 
 	public static void menuPedido(Cliente cliente) {
+		
+		pedidoDao = new PedidoDao();
+		
 		int escolha1 = 0;
 
 		boolean menu = true;
@@ -392,6 +395,7 @@ public class Main {
 				break;
 
 			case (3):
+				
 				double total = 0;
 				for (Produto produto1 : pedidoDao.ListaProduto()) {
 					System.out.println("Nome: " + produto1.getNome() + "\n" + "R$ :" + produto1.getPreco() + "\n"
