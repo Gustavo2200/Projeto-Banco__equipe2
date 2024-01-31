@@ -24,21 +24,34 @@ public class Main {
 		Produto p3 = new Produto("bermuda", 70, 2978546, 20);
 		Produto p4 = new Produto("calca", 90, 1035792, 20);
 		Produto p5 = new Produto("bone", 60, 3421402, 20);
+		
 		produtoService.adicionarProduto(p1);
 		produtoService.adicionarProduto(p2);
 		produtoService.adicionarProduto(p3);
 		produtoService.adicionarProduto(p4);
 		produtoService.adicionarProduto(p5);
+		
+		int tipoUsuario=0;
+		
 		boolean repete = true;
 		while (repete) {
+		boolean enquanto = true;
+		while(enquanto) {
+			try {
+		
 			System.out.println("Bem-vindo a loja!");
-			System.out.println("(1) Checkout Vendedor");
-			System.out.println("(2) Checkout Cliente");
+			System.out.println("(1) Check-in Vendedor");
+			System.out.println("(2) Check-in Cliente");
 			System.out.println("(3) Sair ");
 			System.out.println("Digite o número da opção desejada: ");
-			int tipoUsuario = input.nextInt();
+			 tipoUsuario = input.nextInt();
 			input.nextLine();
-
+          enquanto = false;
+		}catch(Exception e) {
+			System.out.println("Digite novamente somente os númeroos listados");
+			input.nextLine();
+			
+		}
 			if (tipoUsuario == 1) {
 				System.out.print("Digite a senha do vendedor: ");
 				String senhaDigitada = input.next();
@@ -57,18 +70,22 @@ public class Main {
 		}
 
 	}
+	}
 
 	public static void login() {
+		
 		input = new Scanner(System.in);
 		boolean repete = true;
 		Cliente Yago = new Cliente("Yago", 100, "yago.piovarczik1@gmail.com", "12121212121", "16 de fevereiro", "1616");
 		Cliente Victor = new Cliente("Victor", 100, "victaohugoresende@gmail.com", "12345678998", "04 de maio", "4978");
 		Cliente Davi = new Cliente("Davi", 100, "davi.rodrigues@gmail.com", "98765432112", "06 de setembro", "3958");
 		Cliente Lucas = new Cliente("Lucas", 100, "lucas.ferraz@gmail.com", "10293847561", "11 de maio", "2784");
+		
 		clienteService.adicionarCliente(Yago);
 		clienteService.adicionarCliente(Victor);
 		clienteService.adicionarCliente(Davi);
 		clienteService.adicionarCliente(Lucas);
+		
 		while (repete) {
 			System.out.println("(1) Criar cadastro");
 			System.out.println("(2) Fazer Login");
@@ -77,7 +94,8 @@ public class Main {
 
 			int escolha = input.nextInt();
 			input.nextLine();
-
+			
+			
 			if (escolha == 1) {
 				cadastrarCliente();
 			} else if (escolha == 2) {
@@ -274,29 +292,42 @@ try {
 				System.out.println("Qual a quantidade?:\n");
 				int quantidade = input.nextInt();
 				Produto p = null;
+				
 				for (Produto produto : produtoService.listaProduto()) {
-					if (nomeProdutoAdicionar.equals(produto.getNome())) {
+					if (nomeProdutoAdicionar.equals(produto.getNome())) {	
 						if (quantidade < produto.getQuantidadeEstoque()) {
-							produto.setQuantidadeComprada(quantidade);
-							p = produto;
-							System.out.println("Produto adicionado com sucesso");
-						} else {
-							System.out.println(
-									"A quantidade desejada é maior que a disponível, digite " + "uma quantidade menor");
+							
+							boolean noCarrinho = false;
+							
+							for(Produto pedido : pedidoDao.ListaProduto()) {
+								if(nomeProdutoAdicionar.equals(pedido.getNome())) {
+									pedido.setQuantidadeComprada(pedido.getQuantidadeComprada()+ quantidade);
+								noCarrinho = true;
+								if(pedido.getQuantidadeComprada()> pedido.getQuantidadeEstoque()) {
+									pedido.setQuantidadeComprada(pedido.getQuantidadeEstoque());
+									System.out.println("Quantidade ajustada para "+ pedido.getQuantidadeEstoque()+ " ,pois a quantidade de estoque foi ultrapassada ");
+								}
+								System.out.println("Quantidade adicionada no carrinho!\n ");
+								break;
+								}
+							}
+							if(noCarrinho == false) {
+								p = produto;
+								p.setQuantidadeComprada(quantidade);
+								pedidoDao.adicionarProduto(p);
+								System.out.println("Produto adicionado ao carrinho!\n ");
+							}
+						}
+						else {
+							System.out.println("Quantidade do produto não disponivel!\n ");
 						}
 					}
-
 				}
-
-				if (p != null) {
-					pedidoDao.adicionarProduto(p);
-				} else {
-					System.out.println("Produto não adicionado, tente novamente");
-
-				}
+				
 				break;
 
 			case (2):
+				
 				int quantidadeComprada = 0;
 				int codigoProdutoRemover = 0;
 				Produto p7 = null;
@@ -328,14 +359,15 @@ try {
 				break;
 
 			case (3):
-
+				double total = 0; 
 				for (Produto produto1 : pedidoDao.ListaProduto()) {
 					System.out.println("Nome: " + produto1.getNome() + "\n" + "R$ :" + produto1.getPreco() + "\n"
 							+ "Código de barra do produto : " + produto1.getCodigoBarra() + "\n" + "Quantidade: "
 							+ produto1.getQuantidadeComprada() + "\n");
-					double total = pedidoDao.calcularTotal();
-					System.out.println("Valor do carrinho R$: " +total);
+					 total = pedidoDao.calcularTotal();
+					
 				}
+			System.out.println("Valor do carrinho R$: " +total);
 				break;
 
 			case (4):
