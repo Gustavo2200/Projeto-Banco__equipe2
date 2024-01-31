@@ -1,6 +1,4 @@
-import java.util.List;
 import java.util.Scanner;
-
 import br.com.cdb.dao.PagamentoDao;
 import br.com.cdb.dao.PedidoDao;
 import br.com.cdb.model.Cliente;
@@ -10,7 +8,7 @@ import br.com.cdb.service.ProdutoService;
 
 public class Main {
 
-	private static final String SENHA_VENDEDOR = "senha";
+	private static final String SENHA_VENDEDOR = "GRUPO2";
 	static Scanner input = new Scanner(System.in);
 	PagamentoDao pagamentoDao = new PagamentoDao();
 	static ProdutoService produtoService = new ProdutoService();
@@ -358,13 +356,19 @@ public class Main {
 				int quantidadeComprada = 0;
 				int codigoProdutoRemover = 0;
 				Produto p7 = null;
+				
 				for (Produto produto1 : pedidoDao.ListaProduto()) {
 					System.out.println("Nome: " + produto1.getNome() + "\n" + "R$ :" + produto1.getPreco() + "\n"
 							+ "Código de barra do produto : " + produto1.getCodigoBarra() + "\n" + "Quantidade: "
 							+ produto1.getQuantidadeComprada() + "\n");
-
+				}	
+				
 					System.out.println("Digite o código de barra do produto que voce quer remover:\n");
 					codigoProdutoRemover = input.nextInt();
+					
+					for (Produto produto1 : pedidoDao.ListaProduto()) {
+						
+					
 					if (codigoProdutoRemover == produto1.getCodigoBarra()) {
 						p7 = produto1;
 						if (produto1.getQuantidadeComprada() != 1) {
@@ -373,11 +377,13 @@ public class Main {
 							quantidadeComprada = produto1.getQuantidadeComprada() - quantidadeRemover;
 							produto1.setQuantidadeComprada(quantidadeComprada);
 							System.out.println("Foram removidos: " + quantidadeRemover + " itens do seu carrinho");
-
+						}
 						}
 					}
 
-				}
+				
+				
+				
 
 				if (p7.getQuantidadeComprada() < 1) {
 					pedidoDao.removerProduto(codigoProdutoRemover);
