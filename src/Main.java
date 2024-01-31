@@ -24,78 +24,90 @@ public class Main {
 		Produto p3 = new Produto("bermuda", 70, 2978546, 20);
 		Produto p4 = new Produto("calca", 90, 1035792, 20);
 		Produto p5 = new Produto("bone", 60, 3421402, 20);
-		
+
 		produtoService.adicionarProduto(p1);
 		produtoService.adicionarProduto(p2);
 		produtoService.adicionarProduto(p3);
 		produtoService.adicionarProduto(p4);
 		produtoService.adicionarProduto(p5);
-		
-		int tipoUsuario=0;
-		
+
+		int tipoUsuario = 0;
+
 		boolean repete = true;
 		while (repete) {
-		boolean enquanto = true;
-		while(enquanto) {
-			try {
-		
-			System.out.println("Bem-vindo a loja!");
-			System.out.println("(1) Check-in Vendedor");
-			System.out.println("(2) Check-in Cliente");
-			System.out.println("(3) Sair ");
-			System.out.println("Digite o número da opção desejada: ");
-			 tipoUsuario = input.nextInt();
-			input.nextLine();
-          enquanto = false;
-		}catch(Exception e) {
-			System.out.println("Digite novamente somente os númeroos listados");
-			input.nextLine();
-			
-		}
-			if (tipoUsuario == 1) {
-				System.out.print("Digite a senha do vendedor: ");
-				String senhaDigitada = input.next();
+			boolean enquanto = true;
+			while (enquanto) {
+				try {
 
-				if (senhaDigitada.equals(SENHA_VENDEDOR)) {
-					menuProduto();
-				} else {
-					System.out.println("Senha incorreta");
+					System.out.println("Bem-vindo a loja!");
+					System.out.println("(1) Check-in Vendedor");
+					System.out.println("(2) Check-in Cliente");
+					System.out.println("(3) Sair ");
+					System.out.println("Digite o número da opção desejada: ");
+					tipoUsuario = input.nextInt();
+					input.nextLine();
+					enquanto = false;
+				} catch (Exception e) {
+					System.out.println("Digite novamente somente os números listados");
+					input.nextLine();
+
 				}
-			} else if (tipoUsuario == 2) {
-				login();
-			} else {
-				System.out.println("Saindo do programa.");
-				repete = false;
-			}
-		}
+				if (tipoUsuario == 1) {
+					System.out.print("Digite a senha do vendedor: ");
+					String senhaDigitada = input.next();
 
-	}
+					if (senhaDigitada.equals(SENHA_VENDEDOR)) {
+						menuProduto();
+					} else {
+						System.out.println("Senha incorreta");
+					}
+				} else if (tipoUsuario == 2) {
+					login();
+				} else if (tipoUsuario == 3) {
+					System.out.println("Saindo do programa.");
+					repete = false;
+				} else {
+					System.out.println("Número inválido, digite novamente somente os números listados ");
+					input.nextLine();
+				}
+			}
+
+		}
 	}
 
 	public static void login() {
-		
+
 		input = new Scanner(System.in);
 		boolean repete = true;
 		Cliente Yago = new Cliente("Yago", 100, "yago.piovarczik1@gmail.com", "12121212121", "16 de fevereiro", "1616");
 		Cliente Victor = new Cliente("Victor", 100, "victaohugoresende@gmail.com", "12345678998", "04 de maio", "4978");
 		Cliente Davi = new Cliente("Davi", 100, "davi.rodrigues@gmail.com", "98765432112", "06 de setembro", "3958");
 		Cliente Lucas = new Cliente("Lucas", 100, "lucas.ferraz@gmail.com", "10293847561", "11 de maio", "2784");
-		
+
 		clienteService.adicionarCliente(Yago);
 		clienteService.adicionarCliente(Victor);
 		clienteService.adicionarCliente(Davi);
 		clienteService.adicionarCliente(Lucas);
-		
+		int escolha = 0;
 		while (repete) {
-			System.out.println("(1) Criar cadastro");
-			System.out.println("(2) Fazer Login");
-			System.out.println("(3) Sair ");
-			System.out.println("Digite o número da opção desejada: ");
+			boolean enquanto = true;
+			while (enquanto) {
+				try {
+					System.out.println("(1) Criar cadastro");
+					System.out.println("(2) Fazer Login");
+					System.out.println("(3) Sair ");
+					System.out.println("Digite o número da opção desejada: ");
 
-			int escolha = input.nextInt();
-			input.nextLine();
-			
-			
+					escolha = input.nextInt();
+					input.nextLine();
+					enquanto = false;
+				} catch (Exception e) {
+					System.out.println("Digite novamente somente os números listados");
+					input.nextLine();
+
+				}
+			}
+
 			if (escolha == 1) {
 				cadastrarCliente();
 			} else if (escolha == 2) {
@@ -111,19 +123,22 @@ public class Main {
 					if (cliente.getEmail().equals(email) && cliente.getSenha().equals(senha)) {
 						cliente1 = cliente;
 						break;
-						
+
 					}
 				}
-				if( cliente1 != null) {
+				if (cliente1 != null) {
 					menuPedido(cliente1);
-				}
-				else {
-							System.out.println("Informação incorreta, digite novamente!");
-						
+				} else {
+					System.out.println("Informação incorreta, digite novamente!");
+
 				}
 			} else if (escolha == 3) {
 				System.out.println("Saindo!:\n");
 				repete = false;
+			}
+			else {
+				System.out.println("Numero inválido, digite somente os números listados acima!");
+				input.nextLine();
 			}
 		}
 	}
@@ -141,16 +156,15 @@ public class Main {
 
 		System.out.println("Qual é o seu cpf?:\n");
 		String cpf = input.nextLine();
-		while(clienteService.verificarClienteCpf(cpf)==false) {
+		while (clienteService.verificarClienteCpf(cpf) == false) {
 			System.out.println("CPF inválido, digite os 11 dígitos");
 			cpf = input.nextLine();
-			
+
 		}
-		
 
 		System.out.println("Crie uma senha de 4 a 10 caracteres:\n");
 		String senha = input.nextLine();
-		while(clienteService.verificarClienteSenha(senha)==false) {
+		while (clienteService.verificarClienteSenha(senha) == false) {
 			System.out.println("Senha inválida, a senha deve ter entre 4 a 10 caracteres");
 			senha = input.nextLine();
 		}
@@ -178,8 +192,21 @@ public class Main {
 			System.out.println("Olá! Digite o que voce quer fazer:\n" + "1- Adicionar produto no estoque\n"
 					+ "2- Remover produto do estoque\n" + "3- Exibir estoque\n"
 					+ "4- Buscar produto pelo código de barras\n" + "5- Voltar\n");
+			boolean entrada = true;
+			while (entrada) {
+				try {
 
-			escolha = input.nextInt();
+					escolha = input.nextInt();
+					input.nextLine();
+					entrada = false;
+				} catch (Exception e) {
+					System.out.println("Digite novamente somente os números listados");
+					input.nextLine();
+				}
+
+			}
+
+			
 
 			switch (escolha) {
 			case 1:
@@ -265,20 +292,20 @@ public class Main {
 
 			System.out.println("\nOlá! " + cliente.getNome() + " digite o que voce quer fazer:\n"
 					+ "1- Adicionar produto no carrinho \n" + "2- Remover produto do carrinho\n"
-					+ "3- Exibir carrinho \n" + "4- Ver saldo\n"
-					+ "5- Depositar \n" + "6- Finalizar compra\n" + "7- Voltar \n");
+					+ "3- Exibir carrinho \n" + "4- Ver saldo\n" + "5- Depositar \n" + "6- Finalizar compra\n"
+					+ "7- Voltar \n");
 			boolean entrada = true;
-			while(entrada) {
-try {
-	
-			escolha1 = input.nextInt();
-			input.nextLine();
-		entrada = false;
-			} catch(Exception e) {
-				System.out.println("Digite novamente somente os números listados");
-			input.nextLine();
-			}
-				
+			while (entrada) {
+				try {
+
+					escolha1 = input.nextInt();
+					input.nextLine();
+					entrada = false;
+				} catch (Exception e) {
+					System.out.println("Digite novamente somente os números listados");
+					input.nextLine();
+				}
+
 			}
 			switch (escolha1) {
 
@@ -292,42 +319,42 @@ try {
 				System.out.println("Qual a quantidade?:\n");
 				int quantidade = input.nextInt();
 				Produto p = null;
-				
+
 				for (Produto produto : produtoService.listaProduto()) {
-					if (nomeProdutoAdicionar.equals(produto.getNome())) {	
+					if (nomeProdutoAdicionar.equals(produto.getNome())) {
 						if (quantidade < produto.getQuantidadeEstoque()) {
-							
+
 							boolean noCarrinho = false;
-							
-							for(Produto pedido : pedidoDao.ListaProduto()) {
-								if(nomeProdutoAdicionar.equals(pedido.getNome())) {
-									pedido.setQuantidadeComprada(pedido.getQuantidadeComprada()+ quantidade);
-								noCarrinho = true;
-								if(pedido.getQuantidadeComprada()> pedido.getQuantidadeEstoque()) {
-									pedido.setQuantidadeComprada(pedido.getQuantidadeEstoque());
-									System.out.println("Quantidade ajustada para "+ pedido.getQuantidadeEstoque()+ " ,pois a quantidade de estoque foi ultrapassada ");
-								}
-								System.out.println("Quantidade adicionada no carrinho!\n ");
-								break;
+
+							for (Produto pedido : pedidoDao.ListaProduto()) {
+								if (nomeProdutoAdicionar.equals(pedido.getNome())) {
+									pedido.setQuantidadeComprada(pedido.getQuantidadeComprada() + quantidade);
+									noCarrinho = true;
+									if (pedido.getQuantidadeComprada() > pedido.getQuantidadeEstoque()) {
+										pedido.setQuantidadeComprada(pedido.getQuantidadeEstoque());
+										System.out.println("Quantidade ajustada para " + pedido.getQuantidadeEstoque()
+												+ " ,pois a quantidade de estoque foi ultrapassada ");
+									}
+									System.out.println("Quantidade adicionada no carrinho!\n ");
+									break;
 								}
 							}
-							if(noCarrinho == false) {
+							if (noCarrinho == false) {
 								p = produto;
 								p.setQuantidadeComprada(quantidade);
 								pedidoDao.adicionarProduto(p);
 								System.out.println("Produto adicionado ao carrinho!\n ");
 							}
-						}
-						else {
+						} else {
 							System.out.println("Quantidade do produto não disponivel!\n ");
 						}
 					}
 				}
-				
+
 				break;
 
 			case (2):
-				
+
 				int quantidadeComprada = 0;
 				int codigoProdutoRemover = 0;
 				Produto p7 = null;
@@ -351,23 +378,23 @@ try {
 					}
 
 				}
-				
-				if(p7.getQuantidadeComprada() < 1) {
+
+				if (p7.getQuantidadeComprada() < 1) {
 					pedidoDao.removerProduto(codigoProdutoRemover);
 					System.out.println("Item removido com sucesso");
 				}
 				break;
 
 			case (3):
-				double total = 0; 
+				double total = 0;
 				for (Produto produto1 : pedidoDao.ListaProduto()) {
 					System.out.println("Nome: " + produto1.getNome() + "\n" + "R$ :" + produto1.getPreco() + "\n"
 							+ "Código de barra do produto : " + produto1.getCodigoBarra() + "\n" + "Quantidade: "
 							+ produto1.getQuantidadeComprada() + "\n");
-					 total = pedidoDao.calcularTotal();
-					
+					total = pedidoDao.calcularTotal();
+
 				}
-			System.out.println("Valor do carrinho R$: " +total);
+				System.out.println("Valor do carrinho R$: " + total);
 				break;
 
 			case (4):
@@ -390,8 +417,7 @@ try {
 
 				else if (pedidoDao.calcularTotal() > cliente.getSaldo()) {
 					System.out.println("Saldo insuficiente");
-				}
-				else {
+				} else {
 					compraEstoque(cliente, pedidoDao.calcularTotal());
 					System.out.println("Seu saldo atual: " + cliente.getSaldo());
 				}
@@ -408,7 +434,7 @@ try {
 			}
 
 		}
-}
+	}
 
 	public static void listarProdutos() {
 
@@ -429,7 +455,7 @@ try {
 		cliente.setSaldo(cliente.getSaldo() - valorTotal);
 		System.out.println("Compra realizada com sucesso!");
 		pedidoDao.ListaProduto().clear();
-		
+
 	}
 
 }
