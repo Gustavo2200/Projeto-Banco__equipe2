@@ -9,7 +9,9 @@ import br.com.cdb.model.Produto;
 public class PedidoDao {
 	private ArrayList<Produto> listaPedido = new ArrayList<Produto>();
  
+	
 	public boolean adicionarProduto(Produto produto) {
+		
 		listaPedido.add(produto);
 		return true;
  
